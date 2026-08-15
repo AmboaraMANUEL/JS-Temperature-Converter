@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Temperature converter</h1>
+    <div class="option">
+        <label for="valeur">La Valeur</label>
+        <input type="text" id="valeur">
+        <select name="unite" id="unite">
+            <option value="">choix de convesion</option>
+            <option value="F">Fahrenheit</option>
+            <option value="C">Celcius</option>
+        </select>
+        <button id="convert" >convert</button>
+    </div>
+    <p id="resultat">______</p>
+    <script>
+        const valeur = document.querySelector("#valeur");
+        const convesion = document.querySelector("#convert");
+        const unitee = document.querySelector("#unite");
+        const resultat = document.querySelector("#resultat");
+        
+        let uniteSelec ="";
+
+        unitee.addEventListener("change",(e)=>{
+            uniteSelec = e.target.value;
+            // console.log(uniteSelec);
+            
+        })
+
+        convesion.addEventListener("click",()=>{
+            if (uniteSelec==="F") {
+                
+                resultat.textContent = formatTemperature(fahrenheitToCelsius(valeur.value),"C");
+            }
+            else{
+                resultat.textContent = formatTemperature(celsiusToFahrenheit(valeur.value),"F");
+
+            }
+        })
+
+        function celsiusToFahrenheit(celsius){
+            return (celsius*1.8)+32;
+        }
+        function fahrenheitToCelsius(fahrenheit){
+            return(fahrenheit-32)/1.8;
+
+        }
+        function formatTemperature(value,unit){
+            return value+" "+unit;
+        }
+        const fahrenheit = celsiusToFahrenheit(25);
+        console.log(formatTemperature(fahrenheit, 'F'));
+        const celsius = fahrenheitToCelsius(68);
+        console.log(formatTemperature(celsius, 'C'));
+        const freezingFahrenheit = celsiusToFahrenheit(0);
+        console.log(formatTemperature(freezingFahrenheit, 'F'));
+        const freezingCelsius = fahrenheitToCelsius(32);
+        console.log(formatTemperature(freezingCelsius, 'C'));
+    </script>
+</body>
+</html>
